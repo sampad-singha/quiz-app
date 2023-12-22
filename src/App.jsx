@@ -2,7 +2,6 @@
 import Start from "./components/Start.jsx";
 import Quiz from "./components/Quiz.jsx";
 import {useEffect, useState} from "react";
-import data from "./data.js";
 import he from "he"
 const App = () => {
     const [page, setPage] = useState(0)
@@ -39,7 +38,9 @@ const App = () => {
             correctAnswer: result.correct_answer
         }
     }
-    function questionArray(){
+    async function questionArray(){
+        const response = await fetch("https://opentdb.com/api.php?amount=5&type=multiple");
+        const data = await response.json();
         const questions = data.results.map(result => {
             return buildQuestion(result)
         })
@@ -53,11 +54,24 @@ const App = () => {
         })
     }
     function evaluateResult(){
-        setShowResult(true)
+        if(!showResult){
+            setShowResult(true)
+        }else{
+            setPage(0)
+            setQuestion([])
+            setAnswer([])
+            setMark(0)
+            setShowResult(false)
+        }
     }
     function handleStartClick(){
-        setPage(1)
-        questionArray()
+        questionArray().then(r => {
+            setPage(1)
+            console.log(r)
+        })
+            .catch(err => {
+                console.log(err)
+            })
     }
     return (
         <div className={"main"}>

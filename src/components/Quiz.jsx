@@ -25,7 +25,10 @@ const Quiz = (props) => {
             <div className={"quiz--content"}>
                 {questionElement}
             </div>
-            <button {...props} className={"submit--btn"}>{!props.showResult?"Check answers":"Play Again"}</button>
+            <div className={"score--container"}>
+                {props.showResult && <h4 className={"score--board"}>Score: {props.mark + "/" + props.question.length}</h4>}
+                <button {...props} className={"submit--btn"}>{!props.showResult ? "Check answers" : "Play Again"}</button>
+            </div>
         </div>
     );
 };
