@@ -9,6 +9,7 @@ const App = () => {
     const [question, setQuestion] = useState([])
     const [answer,setAnswer] = useState([])
     const [mark,setMark] = useState(0)
+    const [showResult,setShowResult] = useState(false)
 
     useEffect(() => {
         let count = 0
@@ -52,7 +53,7 @@ const App = () => {
         })
     }
     function evaluateResult(){
-        console.log(mark)
+        setShowResult(true)
     }
     function handleStartClick(){
         setPage(1)
@@ -63,10 +64,18 @@ const App = () => {
             {
                 page===0?
                 <Start onClick={handleStartClick}></Start>:
-                <Quiz onClick={evaluateResult} question={question} getSelectedValue={answerArray}/>
+                <>
+                    <Quiz
+                        onClick={evaluateResult}
+                        question={question}
+                        getSelectedValue={answerArray}
+                        answer={answer}
+                        mark={mark}
+                        showResult={showResult}
+                    />
+                </>
             }
         </div>
     );
 };
-
 export default App;

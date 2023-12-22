@@ -13,8 +13,10 @@ const Quiz = (props) => {
                 key={index}
                 question={q.question}
                 options={q.options}
-                correctAnswer={q.correct_answer}
+                correctAnswer={q.correctAnswer}
+                answer={props.answer[index]}
                 getSelectedValue={getSelectedValue}
+                showResult={props.showResult}
             />
         )
     })
@@ -23,7 +25,7 @@ const Quiz = (props) => {
             <div className={"quiz--content"}>
                 {questionElement}
             </div>
-            <button {...props} className={"submit--btn"}>Check answers</button>
+            <button {...props} className={"submit--btn"}>{!props.showResult?"Check answers":"Play Again"}</button>
         </div>
     );
 };
